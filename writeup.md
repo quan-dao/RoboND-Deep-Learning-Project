@@ -10,8 +10,8 @@ This project to is to build a Fully Convolutional Network for images segmentatio
 ## 1. Network Architect
 Outputs of an well-trained FCN are images containing all the pixels of the original images at the same position along with the prediction for these pixels. Therefore, the obtained information is not only objects' presence but also their position. Such outputs are generated thanks to the integration of the 3 building blocks mentioned above into a unified architect shown in `Fig.2`.
 
-![alt text][img1]
-** Fig.2 FCN architect
+![alt text][img2]
+*Fig.2 FCN architect*
 
 In this architect, the **encoder** carries out the features extraction from the input images. Recall that, a single convolutional layer is capable of recognizing patterns (e.g. shape or color) and the deeper the convolutions stack is, the more complex the recognized patterns are. As a result, a convolutional layer is a feasible choice for an encoder. Each encoder (i.e. a convolutional layer) squeezes the input such that it reduces height and width, but increases in depth.  
 
