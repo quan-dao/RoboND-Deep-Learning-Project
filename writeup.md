@@ -47,4 +47,10 @@ Because of the advantage of requiring less parameters to produce the same result
 
 ### 2.2 Batch Normalization
 
-Batch Normalization is an additional way to optimize the network training. Its main idea is that not only the input to the whole network is normalized but also the input to every layer within the network. The normalization of layers input is carried out using the mean and variance of values in the current mini-batch, hence the name Batch Normalization.  
+Batch Normalization is an additional way to optimize the network training. Its main idea is that not only the input to the whole network is normalized but also the input to every layer within the network. The normalization of layers input is carried out using the mean and variance of values in the current mini-batch, hence the name Batch Normalization.
+
+## 3. The 1x1 Convolution
+
+As mentioned in the previous sections, the 1x1 Convolution is used at the end of the encoder queue to preserve the spatial information or by the Seperable Convolution to produce output channels. The implementation of a 1x1 Convolution is the same as a regular convolution which traverses the input stride by stride using a filter. The only difference is that the size of filters is fixed to 1x1 in the case of 1x1 Convolution, while the regular convolutional layer makes use of filters of any size.
+
+The 1x1 Convolution plays the role of a minimal neuron that takes 1 input, multiplies it by a weight, add a bias, then pass to an activation function. This role is similar to a fully connected layer. However, by moving across the input pixel by pixel, the 1x1 Convolution passes on the information of pixels position relative to each other to the output. Such spatial information is completely loss in the flatten-out output of a fully connected layer. Therefore, the 1x1 Convolution is put a the end of the encoder queue to prepare information for the decoding process, while the fully connected layer is placed at the top of the CNN architect to classify the feature extracted by the previous convolutional layers.      
