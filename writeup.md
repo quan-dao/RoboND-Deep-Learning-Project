@@ -36,9 +36,15 @@ Consider an 32x32x3 image as the input for a regular convolutional layer. This l
 
 The 3x3x3 filter seperates the input to smaller patches of the same size. Each patch forms a input tensor `x` (containing the value of all pixels in this patch) that is then fed to a hidden neuron through a number of connections equaling to the total pixels in the patch (patch's volume). This hidden neuron carries out the matrix multiplication between `x` and the matrix of connections weight `W` to produce a **scalar** output, this scalar is a pixel of one output channel. As the filter sweepts through the input, the scalars outputed by the hidden neuron pads next to each other to produce a complete output channel. Given this way of operation, 27 (=3x3x3) parameters are required for an output channel. Therefore, 243 (= 9x27) parameters are needed to produce 9 channels of output.
 
-The Seperable Convolution shown in Fig.4, on the other hand, traverses each input channel individually with a distinct kernel (a filter and a hidden neuron) to produce a feature map.
+The Seperable Convolution shown in Fig.4, on the other hand, traverses each input channel individually with a distinct `kernel` (a filter and a hidden neuron) to produce a feature map. This feature map then get to be traversed again by a **1x1 Convolution** to produce an output channel. This secondary process is similar to the way a regular convolutional layer operates on its inputs, except the filter size is set to `1x1`. 
 
 ![alt text][img4]
 *Fig.4 The operation of a seperable convolutional layer*   
 
-This feature map is then fed to 9 1x1 Convolution to produce 9 output channels.
+Applying the opertion of Seperable Convolutional Layer in the example of an 32x32x3 input image, the number of kernels involving is 3 and there are 3 resulted feature maps because the input image has 3 channels. As each kernel utilizes a 3x3 filter, the total parameters of 3 kernels is 27 (=3x(3x3)). Furthermore, to create 9 output channels, each feature map needs to be traversed by 9 1x1 Convolution; so, 9 more parameters are required for each feature map. The total parameters of a seperable convolutional layer for producing 9 output channels are 27 + 3x9 = 54. This is much smaller than the equivalent of a regular convolutional layer (243 parameters).      
+
+Because of the advantage of requiring less parameters to produce the same result, the Seperable Confolutional Layer makes the whole network more efficient with improved runtime performance and reduces overfitting.
+
+### 2.2 Batch Normalization
+
+Batch Normalization is an additional way to optimize the network training. Its main idea is that not only the input to the whole network is normalized but also the input to every layer within the network. The normalization of layers input is carried out using the mean and variance of values in the current mini-batch, hence the name Batch Normalization.  
