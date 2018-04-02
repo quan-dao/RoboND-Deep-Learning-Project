@@ -12,6 +12,7 @@
 This project to is to build a Fully Convolutional Network for images segmentation. The goal of such segmentation is coordinating the hero's position (Fig. 1) in the images taken by a quadrotor operating in a simulation environment so that it can follow the hero. The implementation of this FCN is consituted by 3 building blocks which are the encoder, the 1x1 convolution, and the decoder. The function of each block, how it is formed, and the its role in the whole network is described in following sections. 
 
 ![alt text][img1]
+
 *Fig.1 The Hero*
 
 ## 1. Network Architect
@@ -68,6 +69,7 @@ The 1x1 Convolution plays the role of a minimal neuron that takes 1 input, multi
 A decoder block is constructed by 3 sub building blocks that are the Bilinear Upsampling Layer, the Skip Connection, and the Seperable Convolutional Layer. The architect of one decoder block used in this project is shown in Fig.5.
 
 ![alt text][img5]
+
 *Fig.5 The architect of a decoder block*
 
 ### 4.1 The Bilinear Upsampling Layer
