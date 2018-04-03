@@ -25,7 +25,7 @@ In this architect, the **encoder** carries out the features extraction from the 
 
 At the end of the encoders queue, a **1x1 convolution** is placed instead of a fully connected layer, compared to the CNN architect. The reason for this replacement is the 4-D tensor outputed by the 1x1 convolution. Such high-dimention output preserves the spatial information (the location of pixels), which is lost the flattened out output of a fully connected layer.    
 
-The output of the 1x1 convolution containing all the features extracted by the encoders (convolutional layer) queue is up scaled by the **decoder** to the size of the original input image. This is made possible by the spatial information preserved in the 1x1 convolution. The techniques utilized to implement the decoder are the Bilinear Upsampling and Skip Connection. While the Bilinear Upsampling is for scaling up the input, the Skip Connection helps improve the scale accuracy by enabling the decoder to use inputs at different resolution by directly feeding it with the encoders output. The skip connections are represented by the green arrow in Fig.2.
+The output of the 1x1 convolution containing all the features extracted by the encoders (convolutional layer) queue is up scaled by the **decoder** to the size of the original input image. This is made possible by the spatial information preserved in the 1x1 convolution. The techniques utilized to implement the decoder are the Bilinear Upsampling and Skip Connection. While the Bilinear Upsampling is for scaling up the input, the Skip Connection helps improve the scale accuracy by enabling the decoder to capture features that might be missed during the operation of previous layers. The skip connections are represented by the green arrow in Fig.2.
 
 ## 2. The Encoder
 
@@ -91,3 +91,9 @@ Once the training process smoothly proceeds, the ***number of epoch*** is increa
 Another training cycle is carried out with the same ***learning rate*** (0.01), the ***batch size*** increased to 30, the ***number of epoches*** inceased to 5, and the ***the steps per epoch*** decreased to 200. The model score is decreased to around 23%. This informs the adjustment of hyper parameters is in the wrong direction.
 
 The 30% score of the previous training cycle seems promising. So, ***number of epoches*** is increased to 10, while others paramters is kept the same. That leaves 0.01 ***learning rate***, 20 ***batch size***, and 400 ***step per epoch***. This time the model is scored 43% above the threshold. Therefore, the hyper parameters are finallized.
+
+## 6. Conclusion & Future work
+
+This project has implemented a Fully Convolutional Network for segmentation images such that pixels representing the hero are classified with the accuracy of 40%. This FCN architect can also be applied to following other objects (e.g. cars, dogs, or cats) because the following task is centered on the ability of giving the prediction of what object each pixel represents while preserving the input images' spatial information. However, the training and validation data needs to be changed for the FCN to learn about the new following target.
+
+For future enhancement, the training and validation should be increased. Beside, the hyper parameter tuning process needs to be extended to find a better parameter combination. This can be done more systamtically with evolutionary algorithms such as Genetic Algorithm (GA). Finally, more convolutional layers should be added to the encoders queue so that the FCN can recognize more complex pattern.   
